@@ -1,0 +1,19 @@
+You can simplify massive, hard-to-read React components into
+composable bits in a few steps:
+
+1. Move all the logic before the return into a single hook
+
+2. Create a context provider whose value is the return type of that hook
+3. Wrap the component with the context provider
+
+4. Split the Ul it returns into smaller components which consume the
+context
+
+Tracking is the spacing between all characters in a block of text. It's also called letter-spacing.
+When you increase tracking, you add space between every letter, making the text more spread out and airier. When you decrease it, you pull the letters closer together, making the text more compact.
+Here's why it matters in UI/UX:
+Readability: Body text usually works best with little to no tracking adjustment. Too much space makes words harder to recognize as units. Too little makes letters blur together.
+Hierarchy and emphasis: Designers often increase tracking slightly for uppercase headings or buttons. This makes all-caps text easier to read and gives it a more refined, professional look.
+Small text: Slightly increased tracking can help very small text (like labels or captions) remain legible, especially on screens.
+Brand feel: Tighter tracking can feel modern and bold. Looser tracking can feel elegant or minimalist. Your tracking choices contribute to the overall personality of your interface.
+

@@ -1,0 +1,237 @@
+That’s one downside of keyframes: you can’t smoothly change the end position while the animation is running. CSS transitions, on the other hand, can be interrupted and retargeted, even before the first transition has finished, so I used them instead:
+
+When done right, animations make an interface feel predictable, faster, and more enjoyable to use. They help you and your product stand out.
+
+But they can also do the opposite. They can make an interface feel unpredictable, slow, and annoying. They can even make your users lose trust in your product.
+
+So how do you know when and how to animate to improve the experience?
+
+Step one is making sure your animations have a purpose.
+
+Before you start animating, ask yourself: what’s the purpose of this animation?
+
+Another purposeful animation is this subtle scale down effect when pressing a button. It’s a small thing, but it helps the interface feel more alive and responsive.
+
+But sometimes the purpose of an animation might just be to bring delight.
+
+How often users will see an animation is a key factor in deciding whether to animate or not. Think about what the user wants to achieve and how often they will see an animation. A hover effect is nice, but if used multiple times a day, it would likely benefit the most from having no animation at all.The same goes for keyboard-initiated actions. These actions may be repeated hundreds of times a day, an animation would make them feel slow, delayed, and disconnected from the user’s actions. You should never animate them.But even if your animation won’t be used too often and it fulfills a clear purpose, you still have to think about its speed…
+
+Unless you are working on marketing sites, your animations have to be fast. They improve the perceived performance of your app, stay connected to user’s actions, and make the interface feel as if it’s truly listening to the user.
+
+To give you an example, a faster-spinning spinner makes the app seem to load faster, even though the load time is the same. This improves perceived performance.
+
+A 180ms dropdown animation feels more responsive than a 400ms one.
+
+As a rule of thumb, UI animations should generally stay under 300ms.
+
+Another example of the importance of speed: tooltips should have a slight delay before appearing to prevent accidental activation. Once a tooltip is open however, hovering over other tooltips should open them with no delay and no animation.
+
+The goal is not to animate for animation’s sake, it’s to build great user interfaces. The ones that users will happily use, even on a daily basis. Sometimes this requires animations, but sometimes the best animation is no animation.
+
+
+1. Scale your buttons
+
+The interface should feel as if it’s listening to the user. You should aim to give the user feedback on all of their actions as soon as possible. Submitting a form should show a loading state, copy to clipboard action should show a success state.
+
+One easy way to make your interface feel instantly more responsive is to add a subtle scale down effect when a button is pressed. A scale of 0.97 on the :active pseudo-class should do the job:
+2. Don’t animate from scale(0)
+
+Elements that animate from scale(0) can make an animation feel off. Try animating from a higher initial scale instead (0.9+). It makes the movement feel more gentle, natural, and elegant.
+
+I’m using an initial scale of 0.93 here.
+
+scale(0) feels wrong because it looks like the element comes out of nowhere. A higher initial value resembles the real world more. Just like a balloon, even when deflated it has a visible shape, it never disappears completely.
+3. Don’t delay subsequent tooltips
+
+Tooltips should have a delay before appearing to prevent accidental activation. Once a tooltip is open, hovering over other tooltips should open them with no delay and no animation. This feels faster without defeating the purpose of the initial delay.
+
+Hover over one of the icons to see a tooltip, then quickly hover over another icon within the same group.
+
+Radix and Base UI, two unstyled component libraries, skip the delay once a tooltip is shown. Base UI allows you to skip the animation as well. To do that you’ll need to target the data-instant attribute and set the transition duration to 0ms.
+
+Here’s how the styles would look like to achieve this:
+
+.tooltip {
+  transition:
+    transform 0.125s ease-out,
+    opacity 0.125s ease-out;
+  transform-origin: var(--transform-origin);
+
+  &[data-starting-style],
+  &[data-ending-style] {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  /** This takes care of disabling subsequent animations */
+  &[data-instant] {
+    transition-duration: 0ms;
+  }
+}
+
+4. Choose the right easing
+
+Easing, which describes the rate at which something changes over a period of time, is the most important part of any animation.
+
+It can make a bad animation look great, and a great animation look bad.
+
+If you are animating something that is entering or exiting the screen, use ease-out. It accelerates at the beginning which gives the user a feeling of responsiveness.
+
+The dropdown on the left below uses ease-in, which starts slow. The one on the right uses ease-out, which starts fast, making the animation feel faster too.
+
+The duration for these dropdowns is identical, 300ms (you can inspect the code to verify this), but the ease-in one feels slower. That’s the difference easing makes.
+
+You could decrease the duration to make ease-in work, but this easing is just not made for UI animations. It speeds up at the end, which is the opposite of what we want.
+
+Here’s a visual representation of both curves, blue is ease-out. Notice how much faster it moves at the beginning, that’s what we want for our animations.
+
+Replay the animation by pressing on the refresh icon in the bottom right corner.
+
+Most of the animations you’ve seen so far also use custom easing curves to make them feel better.
+
+The built-in easing curves in CSS are usually not strong enough, which is why I almost never use them. Take a look at the example below where we compare two versions of the ease-in-out curve:
+Built-inCustom
+
+Custom easing feels more energetic.
+
+You can still apply the easing principles, just use a custom ease-out for more impact. There are plenty of sites that offer custom variations of all easings, here’s one I recommend: easings.co.
+5. Make your animations origin-aware
+
+A way to make your popovers feel better is to make them origin-aware. They should scale in from the trigger. You’ll need CSS’s transform-origin for this, but its default value is center, which is wrong in most cases.
+
+Click on the feedback button below to open the popover and see it animate from the center, close it, and press J to set the correct origin and open the popover again.
+Pressing S will slow the animation down so you can see the difference better.
+
+Press J to toggle between aware and unaware origins, then click on the button.
+
+You can also click on the dashed buttons to move the component to a different position. The difference is most noticeable when both the horizontal and vertical origins don’t match, like top right.
+
+Base UI and Radix UI support origin-aware animations through CSS variables. This means that applying these variables will set the correct origin automatically.
+
+.radix {
+  transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+}
+
+.baseui {
+  transform-origin: var(--transform-origin);
+}
+
+You might think that the difference is subtle, maybe you don’t even notice it. To be honest, whether you or your users notice it doesn’t matter that much. In the aggregate, unseen details become visible, they compound.
+“
+
+All those unseen details combine to produce something that’s just stunning, like a thousand barely audible voices all singing in tune.”
+Paul Graham, Hackers and Painters
+6. Keep your animations fast
+
+A faster-spinning spinner makes the app seem to load faster, even though the load time is the same. This improves the perceived performance.
+
+Which one works harder to load the data?
+
+A 180ms select animation feels more responsive than a 400ms one:
+
+As a rule of thumb, UI animations should generally stay under 300ms.
+
+Remove animations or hover interactions altogether if they are seen tens, maybe even hundreds of times a day. Instead of delighting your users, they’ll quickly become annoying and make your interface feel slower.
+
+Imagine you interact with this list often during the day.
+
+I go into this topic in more detail in the "You Don’t Need Animations" post.
+7. Use blur when nothing else works
+
+If you tried a few different easings and durations for your animation and something about it still feels off, try adding a bit of filter: blur() to mask those imperfections.
+
+Below we have a button that simply crossfades between two states, and another one that adds 2px of blur to that animation. It also uses tip #1 to scale the button down to 0.97 when pressed. Notice how much more pleasing the second button feels.
+
+Click the button to toggle between two states.
+
+Blur works here because it bridges the visual gap between the old and new states. Without it, you see two distinct objects, which feels less natural.
+
+It tricks the eye into seeing a smooth transition by blending the two states together.
+
+Good vs Great Animations
+
+We all want our UIs to feel great and animations can definitely help with that. But how do you actually create a great animation? This article is a collection of practical tips to help you go from good to great animations.
+Origin-aware animations
+
+When we click on a button that opens a dropdown, we expect the dropdown to animate from where the button is. This feels natural, it then doesn’t appear out of nowhere, it has a clear origin.
+
+The default transform-origin in CSS is center, but in this case, we want to change it to bottom-center, because that’s where the button is.
+
+If you are using Radix, you can automate it with the --radix-popover-content-transform-origin CSS variable. If you are using shadcn/ui, the work is already done for you.
+
+.radix-dropdown {
+  transform-origin: var(--radix-popover-content-transform-origin);
+}
+
+Use the right easing
+
+Easing is the most important part of any animation. It can make a bad animation feel great and a great animation feel bad. That’s why you have to know which easing to choose in a specific situation.
+
+Take a look at the example below. Each time you click the play button, the circle moves. The animation uses the ease-in curve. You can switch it to ease-in-out to see the difference. Which one feels better?
+
+You probably guessed that ease-in-out is the better choice here, but why?
+
+Animations have to feel natural. Since we’re moving something that is already on the screen, the motion should mimic natural acceleration and deceleration, just like a car. This curve does exactly that.
+
+A visual representation of the ease-in-out curve.
+
+While this example covers the ease-in-out curve, you should default to ease-out in most cases. More on that here.
+Use custom easing curves
+
+The built-in easing curves in CSS are usually not strong enough, which is why I almost never use them. Take a look at the example below where we compare two versions of the ease-in-out curve to see the difference.
+Custom
+
+Custom easing feels more energetic.
+
+ease is an exception as it works well for basic hover effects like changing background color, but anything else requires a custom curve for the right feel.
+
+Plenty of sites offer custom easing curves; easing.dev and easings.co are two I recommend if you don’t feel like creating them yourself.
+Spring-based interactions
+
+Changing a component based on mouse position is a nice way to add interactivity to your UI in a subtle way. However, tying visual changes directly to mouse position can feel artificial, as it lacks motion.
+
+Interacting with this graph doesn’t feel satisfying.
+
+To make the interaction feel more natural, use the useSpring hook from Framer Motion (now called Motion). It interpolates value changes with spring-like behavior, rather than updating them immediately.
+
+This makes the interaction feel less artificial, since nothing in the real world changes instantly. There are cases where an instant change on the web is better, but this isn’t one of those cases.
+
+This works, because this animation is decorative, it doesn’t serve any function. If this was a functional graph, in a banking app for example, no animation would be better.
+Know your tools
+
+Knowing which CSS properties to use in a specific situation is key to great animations.
+
+A good tabs transition animates both the highlight bar and the text color, like the one below. But if you change the animation speed (button in the top-right corner), you’ll notice the movement and color change don’t really play well together.
+
+It’s not something you’d notice immediately, but you would be able to tell that something feels off. Usually, playing the animation frame by frame, or in slow motion, helps you spot it.
+
+When you know your tools, you know that using clip-path in this case is what will make the color transition feel right. You can view the implementation of this component here.
+
+Play it in slow motion to see the color transition blending in with the highlighted tab.
+
+Knowing what’s possible doesn’t just help you improve existing animations, it also helps you create new ones. At one point, I played with 3D transforms and came up with this orbiting effect:
+Code Playground
+import "./styles.css";
+
+export default function Orbit() {
+  return (
+    <div className="wrapper">
+      <div className="circle" />
+      <div className="orbitingCircle" />
+    </div>
+  );
+}
+
+While this type of animation is not that impressive, it lets you know that it is possible to animate an element in 3D space in CSS. With a little bit of creativity, you could for example create a 3D loading animation that Yann designed and I coded at Linear.
+
+This was just an experiment, it didn’t make it to the app.
+
+Or even a 3D coin CSS Animation:
+
+Inspired by aave.
+Why does this matter?
+
+Everyone’s software is good enough these days. The barriers to entry are low. To stand out, you need to make your product feel great. One way of doing that is through animations.
+
+Knowing when to add an animation, how, and why, can drastically change how your product is perceived and felt. I go in more depth on the theory and practice of great animations in my animations course, you can view it here:
+

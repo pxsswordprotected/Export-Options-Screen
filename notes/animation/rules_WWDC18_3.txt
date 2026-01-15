@@ -1,0 +1,102 @@
+Here are the fundamentals of designing fluid interfaces, along with examples.
+
+### 1. Instant Response
+
+The interface must react instantly to user input. Any delay, or latency, breaks the connection between the user and the tool and adds a mental burden.
+
+*
+**Example 1:** A button highlighting the very instant your finger touches down, not when it lifts up.
+
+
+*
+**Example 2:** An app beginning its launch animation immediately when you tap the icon.
+
+
+*
+**Example 3:** Detecting a "pause" gesture by looking at the *acceleration* (a sudden stop) rather than waiting for a timer to finish .
+
+
+
+---
+
+### 2. Direct Manipulation (1:1 Tracking)
+
+Content should stay perfectly attached to the user's gesture, moving together as one object. This direct 1:1 tracking is a core principle that makes the device feel natural and intuitive.
+
+*
+**Example 1:** When you scroll a list, the content moves the exact same distance as your finger.
+
+
+*
+**Example 2:** The only time this 1:1 tracking *breaks* is to intentionally signal a boundary, like the "rubberbanding" effect when you hit the end of a list.
+
+
+*
+**Example 3:** Dragging an image across the screen, where the image sticks to your finger as you move it.
+
+
+
+---
+
+### 3. Constant Redirectability
+
+The interface must always be ready for the user to change their mind, allowing them to "constantly redirect" or "interrupt" any action at any time. This allows the user to "think it with the gesture" rather than having to think *before* performing an action .
+
+*
+**Example 1:** Swiping up to go home, but changing your mind mid-gesture to go to multitasking instead .
+
+
+*
+**Example 2:** Launching an app but immediately swiping it back home *while* it's still launching .
+
+
+*
+**Example 3:** Tapping a button but then dragging your finger *off* the button before lifting to cancel the tap.
+
+
+
+---
+
+### 4. Behavior-Driven Motion
+
+Motion should be driven by continuous, dynamic "behaviors"—like physics—rather than static, "timed animations" . This makes the interface feel alive and able to "behave in concert with an interaction".
+
+*
+**Example 1:** When you scroll past the end of a list, the "rubberband" effect isn't a timed animation; it's an elastic "spring" behavior pulling the content back into place.
+
+
+*
+**Example 2:** When you launch an app on iPhone 10, it's "pulled" by an elastic behavior toward the screen.
+
+
+*
+**Example 3:** Swiping between apps uses a "heavier" mass, while swiping between photos uses a "lighter" mass, changing the *feel* of the behavior .
+
+
+
+---
+
+### 5. Projection of Intent
+
+For ambiguous gestures like a "throw," the system must determine intent by *projecting momentum* and velocity, not just by reading the final position . This is key to amplifying a lightweight gesture.
+
+*
+**Example 1:** A lightweight "flick" of a scrolling list sends it coasting, transferring the finger's momentum into the content.
+
+
+*
+**Example 2:** Moving the FaceTime Picture-in-Picture (PIP): a small, fast flick from one corner has enough velocity to project an intent to land in the *opposite* corner.
+
+
+
+---
+
+### 6. Parallel Gesture Recognition
+
+When multiple gestures are possible on a screen, the interface must "detect all possible gestures from the beginning" and provide continuous feedback. It shouldn't wait to see which gesture "wins" before responding.
+
+* **Example 1:** In a contacts list, the system tracks both a *tap* (for 3D Touch) and a *scroll* at the same time. As soon as your finger moves 10 points, it confirms the scroll and cancels the 3D Touch action .
+
+
+*
+**Example 2:** When you tap on a button, it highlights instantly, even though you *could* still drag your finger off it to cancel.
