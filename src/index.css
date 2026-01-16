@@ -1,5 +1,19 @@
-/* Import Inter from Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+/* Geist font faces */
+@font-face {
+    font-family: "Geist";
+    src: url("/fonts/Geist-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Geist Mono";
+    src: url("/fonts/GeistMono-Variable.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
 
 /* 1. Use a modern CSS reset */
 *,
@@ -16,7 +30,7 @@
 /* 2. Foundation */
 :root {
     font-family:
-        "Inter",
+        "Geist",
         system-ui,
         -apple-system,
         sans-serif;
@@ -25,7 +39,7 @@
 
     /* Design Tokens - Colors */
     --bg-color: #ffffff;
-    --text-color: #111827;
+    --text-color: #0F0F0F;
     --primary: #3b82f6;
 
     /* Smooth text rendering */
