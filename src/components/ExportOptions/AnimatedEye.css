@@ -1,0 +1,25 @@
+/* Animated Eye Icon */
+.animated-eye {
+  display: block;
+  transition: transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Eye shape animation - subtle vertical compression on blink */
+.eye-shape {
+  transform-origin: center;
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.eye-shape.hovered {
+  transform: scaleY(0.85);
+}
+
+/* Pupil animation - scales down on blink */
+.eye-pupil {
+  transform-origin: center;
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.eye-pupil.hovered {
+  transform: scale(0.7);
+}

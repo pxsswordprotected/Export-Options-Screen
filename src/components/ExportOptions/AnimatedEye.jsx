@@ -1,0 +1,35 @@
+import { useState } from 'react';
+import './AnimatedEye.css';
+
+function AnimatedEye({ size = 16 }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="animated-eye"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Eye shape */}
+      <path
+        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"
+        className={`eye-shape ${isHovered ? 'hovered' : ''}`}
+      />
+      {/* Pupil */}
+      <path
+        d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"
+        className={`eye-pupil ${isHovered ? 'hovered' : ''}`}
+      />
+    </svg>
+  );
+}
+
+export default AnimatedEye;

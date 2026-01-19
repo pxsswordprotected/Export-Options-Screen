@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { CaretDown } from "@phosphor-icons/react";
 
-function Dropdown({ options, value, onChange, icon, label }) {
+function Dropdown({ options, value, onChange, icon, label, width }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
   const triggerRef = useRef(null);
   const menuRef = useRef(null);
@@ -13,6 +14,7 @@ function Dropdown({ options, value, onChange, icon, label }) {
   useEffect(() => {
     if (isOpen) {
       setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
+      setIsClosing(false);
     }
   }, [isOpen, selectedIndex]);
 
@@ -26,7 +28,7 @@ function Dropdown({ options, value, onChange, icon, label }) {
         menuRef.current &&
         !menuRef.current.contains(e.target)
       ) {
-        setIsOpen(false);
+        closeDropdown();
       }
     }
 
@@ -34,14 +36,29 @@ function Dropdown({ options, value, onChange, icon, label }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
+  function closeDropdown() {
+    setIsClosing(true);
+    setIsOpen(false);
+    setIsClosing(false);
+  }
+
   function handleMouseDown(e) {
     e.preventDefault();
-    setIsOpen(!isOpen);
+    if (isOpen) {
+      closeDropdown();
+    } else {
+      setIsOpen(true);
+    }
   }
 
   function handleKeyDown(e) {
     if (!isOpen) {
-      if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") {
+      if (
+        e.key === "ArrowDown" ||
+        e.key === "ArrowUp" ||
+        e.key === "Enter" ||
+        e.key === " "
+      ) {
         e.preventDefault();
         setIsOpen(true);
         return;
@@ -51,7 +68,9 @@ function Dropdown({ options, value, onChange, icon, label }) {
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setFocusedIndex((prev) => (prev < options.length - 1 ? prev + 1 : prev));
+        setFocusedIndex((prev) =>
+          prev < options.length - 1 ? prev + 1 : prev,
+        );
         break;
       case "ArrowUp":
         e.preventDefault();
@@ -62,24 +81,24 @@ function Dropdown({ options, value, onChange, icon, label }) {
         e.preventDefault();
         if (focusedIndex >= 0) {
           onChange(options[focusedIndex].value);
-          setIsOpen(false);
+          closeDropdown();
           triggerRef.current?.focus();
         }
         break;
       case "Escape":
         e.preventDefault();
-        setIsOpen(false);
+        closeDropdown();
         triggerRef.current?.focus();
         break;
       case "Tab":
-        setIsOpen(false);
+        closeDropdown();
         break;
     }
   }
 
   function handleOptionClick(optionValue) {
     onChange(optionValue);
-    setIsOpen(false);
+    closeDropdown();
     triggerRef.current?.focus();
   }
 
@@ -89,6 +108,7 @@ function Dropdown({ options, value, onChange, icon, label }) {
         ref={triggerRef}
         type="button"
         className="dropdown-trigger"
+        style={width ? { width } : undefined}
         onMouseDown={handleMouseDown}
         onKeyDown={handleKeyDown}
         aria-haspopup="listbox"
@@ -97,14 +117,14 @@ function Dropdown({ options, value, onChange, icon, label }) {
       >
         {icon && <span className="dropdown-icon">{icon}</span>}
         <span className="dropdown-value">{selectedOption?.label}</span>
-        <span className="dropdown-caret">
+        <span className={`dropdown-caret ${isOpen ? "open" : ""}`}>
           <CaretDown size={14} weight="bold" />
         </span>
       </button>
-      {isOpen && (
+      {(isOpen || isClosing) && (
         <ul
           ref={menuRef}
-          className="dropdown-menu"
+          className={`dropdown-menu ${isClosing ? "exiting" : "entering"}`}
           role="listbox"
           aria-label={label}
         >
@@ -121,8 +141,8 @@ function Dropdown({ options, value, onChange, icon, label }) {
                   index === focusedIndex
                     ? "rgba(0, 0, 0, 0.06)"
                     : opt.value === value
-                    ? "rgba(0, 0, 0, 0.04)"
-                    : undefined,
+                      ? "rgba(0, 0, 0, 0.04)"
+                      : undefined,
               }}
             >
               {opt.label}

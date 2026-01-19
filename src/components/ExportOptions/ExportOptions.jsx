@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { CaretLeft, File, Eye } from "@phosphor-icons/react";
+import { CaretLeft, File } from "@phosphor-icons/react";
 import Dropdown from "./Dropdown";
 import InlineCode from "./InlineCode";
+import PdfPreview from "../PdfPreview/PdfPreview";
+import AnimatedEye from "./AnimatedEye";
 import "./ExportOptions.css";
 
 const formatOptions = [
@@ -28,6 +30,13 @@ function ExportOptions() {
   const [fileFormat, setFileFormat] = useState("pdf");
   const [resolution, setResolution] = useState("high");
   const [compression, setCompression] = useState("lossless");
+  const [showPreview, setShowPreview] = useState(false);
+
+  function handlePreviewClick() {
+    if (fileFormat === 'pdf') {
+      setShowPreview(true);
+    }
+  }
 
   return (
     <div className="export-options">
@@ -51,6 +60,7 @@ function ExportOptions() {
             value={fileFormat}
             onChange={setFileFormat}
             label="File format"
+            width="90px"
           />
         </div>
 
@@ -66,6 +76,7 @@ function ExportOptions() {
             value={resolution}
             onChange={setResolution}
             label="Resolution"
+            width="164px"
           />
         </div>
 
@@ -81,6 +92,7 @@ function ExportOptions() {
             value={compression}
             onChange={setCompression}
             label="Compression"
+            width="110px"
           />
         </div>
 
@@ -95,9 +107,11 @@ function ExportOptions() {
             type="button"
             className="preview-button"
             aria-label="Generate preview"
+            onClick={handlePreviewClick}
+            disabled={fileFormat !== 'pdf'}
           >
             <span className="preview-button-icon">
-              <Eye size={16} />
+              <AnimatedEye size={16} />
             </span>
             <span>Preview</span>
           </button>
@@ -113,6 +127,10 @@ function ExportOptions() {
           </div>
         </div>
       </div>
+
+      {showPreview && (
+        <PdfPreview onClose={() => setShowPreview(false)} />
+      )}
     </div>
   );
 }
