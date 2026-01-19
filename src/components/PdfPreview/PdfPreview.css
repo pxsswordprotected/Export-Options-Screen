@@ -1,128 +1,173 @@
 /* Backdrop - full viewport overlay */
 .pdf-preview-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Backdrop exit animation */
+.pdf-preview-backdrop.exiting {
+    animation: backdropExit 200ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Modal container */
 .pdf-preview-modal {
-  width: 90vw;
-  height: 90vh;
-  max-width: 1200px;
-  max-height: 900px;
-  background: #ffffff;
-  border-radius: 18px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  position: relative;
+    width: 90vw;
+    height: 90vh;
+    max-width: 1200px;
+    max-height: 900px;
+    background: #ffffff;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    position: relative;
+}
+
+/* Modal exit animation */
+.pdf-preview-modal.exiting {
+    animation: modalExit 200ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 /* Close button */
 .pdf-close-button {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #0f0f0f;
-  padding: 8px;
-  border-radius: 6px;
-  z-index: 10;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #0f0f0f;
+    padding: 8px;
+    border-radius: 6px;
+    z-index: 10;
 }
 
 .pdf-close-button:hover {
-  background: rgba(0, 0, 0, 0.04);
+    background: rgba(0, 0, 0, 0.04);
 }
 
 .pdf-close-button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0066ff;
+    outline: none;
+    box-shadow:
+        0 0 0 2px #ffffff,
+        0 0 0 4px #0066ff;
 }
 
 /* PDF viewer area */
 .pdf-viewer {
-  flex: 1;
-  overflow: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
+    flex: 1;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
 }
 
 /* Loading and error states */
 .pdf-loading,
 .pdf-error {
-  font-size: 14px;
-  color: rgba(15, 15, 15, 0.5);
+    font-size: 14px;
+    color: rgba(15, 15, 15, 0.5);
 }
 
 .pdf-error {
-  color: #d32f2f;
+    color: #d32f2f;
 }
 
 /* Controls bar */
 .pdf-controls {
-  height: 66px;
-  padding: 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-shrink: 0;
+    height: 66px;
+    padding: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .pdf-controls-left,
 .pdf-controls-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 /* Control buttons */
 .pdf-controls button {
-  height: 34px;
-  padding: 0 12px;
-  background: #ffffff;
-  border: 0.5px solid rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  color: #0f0f0f;
-  font-family: inherit;
-  font-size: 14px;
+    height: 34px;
+    padding: 0 12px;
+    background: #ffffff;
+    border: 0.5px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #0f0f0f;
+    font-family: inherit;
+    font-size: 14px;
 }
 
 .pdf-controls button:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.04);
+    background: rgba(0, 0, 0, 0.04);
 }
 
 .pdf-controls button:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+    opacity: 0.3;
+    cursor: not-allowed;
 }
 
 .pdf-controls button:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0066ff;
+    outline: none;
+    box-shadow:
+        0 0 0 2px #ffffff,
+        0 0 0 4px #0066ff;
 }
 
 /* Indicators */
 .page-indicator,
 .zoom-indicator {
-  font-size: 14px;
-  color: #0f0f0f;
-  user-select: none;
-  min-width: 100px;
-  text-align: center;
+    font-size: 14px;
+    color: #0f0f0f;
+    user-select: none;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* Backdrop fade keyframes */
+@keyframes backdropExit {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* Modal fade + scale keyframes */
+@keyframes modalExit {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+}
+
+/* Accessibility: Disable animation for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .pdf-preview-backdrop.exiting,
+    .pdf-preview-modal.exiting {
+        animation: none;
+        transition: none;
+    }
 }

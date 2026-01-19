@@ -108,7 +108,6 @@ function ExportOptions() {
             className="preview-button"
             aria-label="Generate preview"
             onClick={handlePreviewClick}
-            disabled={fileFormat !== 'pdf'}
           >
             <span className="preview-button-icon">
               <AnimatedEye size={16} />
