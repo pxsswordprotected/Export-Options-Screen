@@ -15,7 +15,8 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 function PdfPreview({ onClose }) {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const [scale, setScale] = useState(1.0);
+  const [scale, setScale] = useState(0.7);
+  const [isEntering, setIsEntering] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
   const modalRef = useRef(null);
 
@@ -51,6 +52,11 @@ function PdfPreview({ onClose }) {
       handleClose();
     }
   }
+
+  // Trigger enter animation on mount
+  useEffect(() => {
+    setIsEntering(false);
+  }, []);
 
   // Calculate transform origin based on preview button position
   useEffect(() => {
@@ -95,11 +101,11 @@ function PdfPreview({ onClose }) {
 
   return (
     <div
-      className={`pdf-preview-backdrop ${isClosing ? "exiting" : ""}`}
+      className={`pdf-preview-backdrop ${isClosing ? "exiting" : isEntering ? "entering" : ""}`}
       onClick={handleBackdropClick}
     >
       <div
-        className={`pdf-preview-modal ${isClosing ? "exiting" : ""}`}
+        className={`pdf-preview-modal ${isClosing ? "exiting" : isEntering ? "entering" : ""}`}
         ref={modalRef}
       >
         <button

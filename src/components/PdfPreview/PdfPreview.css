@@ -2,24 +2,29 @@
 .pdf-preview-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    /*background: rgba(0, 0, 0, 0.5);*/
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 1000;
 }
 
-/* Backdrop exit animation */
+/* Backdrop enter animation with ease-out */
+.pdf-preview-backdrop.entering {
+    animation: backdropEnter 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Backdrop exit animation with ease-out */
 .pdf-preview-backdrop.exiting {
-    animation: backdropExit 200ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: backdropExit 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 /* Modal container */
 .pdf-preview-modal {
-    width: 90vw;
-    height: 90vh;
-    max-width: 1200px;
-    max-height: 900px;
+    width: 75vw;
+    height: 75vh;
+    max-width: 1000px;
+    max-height: 750px;
     background: #ffffff;
     border-radius: 18px;
     display: flex;
@@ -28,9 +33,14 @@
     position: relative;
 }
 
-/* Modal exit animation */
+/* Modal enter animation with ease-out */
+.pdf-preview-modal.entering {
+    animation: modalEnter 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* Modal exit animation with ease-out */
 .pdf-preview-modal.exiting {
-    animation: modalExit 200ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: modalExit 200ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 /* Close button */
@@ -141,7 +151,17 @@
     text-align: center;
 }
 
-/* Backdrop fade keyframes */
+/* Backdrop enter keyframes */
+@keyframes backdropEnter {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Backdrop exit keyframes */
 @keyframes backdropExit {
     from {
         opacity: 1;
@@ -151,7 +171,19 @@
     }
 }
 
-/* Modal fade + scale keyframes */
+/* Modal enter keyframes */
+@keyframes modalEnter {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Modal exit keyframes */
 @keyframes modalExit {
     from {
         opacity: 1;

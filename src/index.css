@@ -38,8 +38,8 @@
     font-weight: 400;
 
     /* Design Tokens - Colors */
-    --bg-color: #ffffff;
-    --text-color: #0F0F0F;
+    --bg-color: #fdfdfd;
+    --text-color: #0f0f0f;
     --primary: #3b82f6;
 
     /* Smooth text rendering */

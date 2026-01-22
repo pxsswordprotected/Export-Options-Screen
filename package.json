@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
+    "agentation": "^1.0.0",
+    "framer-motion": "^12.28.1",
     "geist": "^1.5.1",
     "pdfjs-dist": "^5.4.530",
     "react": "^19.2.0",
